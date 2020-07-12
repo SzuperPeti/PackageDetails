@@ -1,0 +1,160 @@
+USE [PackageDetails]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 2020. 07. 12. 22:00:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DeliveryStage]    Script Date: 2020. 07. 12. 22:00:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DeliveryStage](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CreatedUser] [nvarchar](50) NOT NULL,
+	[CreateDate] [datetime2](7) NOT NULL,
+	[ModifiedUser] [nvarchar](50) NULL,
+	[ModifyDate] [datetime2](7) NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[Code] [nvarchar](20) NULL,
+	[EnglishStatus] [nvarchar](50) NULL,
+	[HungaryStatus] [nvarchar](50) NULL,
+ CONSTRAINT [PK_DeliveryStage] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[DeliveryStage] ON 
+GO
+INSERT [dbo].[DeliveryStage] ([Id], [CreatedUser], [CreateDate], [ModifiedUser], [ModifyDate], [IsDeleted], [Code], [EnglishStatus], [HungaryStatus]) VALUES (1, N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), 0, N'WfpU', N'Waiting for Pick Up', N'Csomag a feladónál')
+GO
+INSERT [dbo].[DeliveryStage] ([Id], [CreatedUser], [CreateDate], [ModifiedUser], [ModifyDate], [IsDeleted], [Code], [EnglishStatus], [HungaryStatus]) VALUES (2, N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), 0, N'PU', N'Picked Up', N'Csomag a futárnál. Depóba tart.')
+GO
+INSERT [dbo].[DeliveryStage] ([Id], [CreatedUser], [CreateDate], [ModifiedUser], [ModifyDate], [IsDeleted], [Code], [EnglishStatus], [HungaryStatus]) VALUES (3, N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), 0, N'ID', N'In Depot', N'Depóban van. Kiszállításra vár.')
+GO
+INSERT [dbo].[DeliveryStage] ([Id], [CreatedUser], [CreateDate], [ModifiedUser], [ModifyDate], [IsDeleted], [Code], [EnglishStatus], [HungaryStatus]) VALUES (4, N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), 0, N'OD', N'On Delivery', N'Kiszállítás alatt áll. Célba tart.')
+GO
+INSERT [dbo].[DeliveryStage] ([Id], [CreatedUser], [CreateDate], [ModifiedUser], [ModifyDate], [IsDeleted], [Code], [EnglishStatus], [HungaryStatus]) VALUES (5, N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), N'Anonymus', CAST(N'2020-07-11T00:00:00.0000000' AS DateTime2), 0, N'DD', N'Delivered', N'Kiszállítva')
+GO
+SET IDENTITY_INSERT [dbo].[DeliveryStage] OFF
+GO
+
+/****** Object:  Table [dbo].[Package]    Script Date: 2020. 07. 12. 22:00:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Package](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CreatedUser] [nvarchar](50) NOT NULL,
+	[CreateDate] [datetime2](7) NOT NULL,
+	[ModifiedUser] [nvarchar](50) NULL,
+	[ModifyDate] [datetime2](7) NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[PackageIdentity] [nvarchar](8) NULL,
+	[DeliveryStageId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
+ CONSTRAINT [PK_Package] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PackageProduct]    Script Date: 2020. 07. 12. 22:00:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PackageProduct](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CreatedUser] [nvarchar](50) NOT NULL,
+	[CreateDate] [datetime2](7) NOT NULL,
+	[ModifiedUser] [nvarchar](50) NULL,
+	[ModifyDate] [datetime2](7) NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[PackageId] [int] NOT NULL,
+	[ProductId] [int] NOT NULL,
+	[ProductCount] [int] NOT NULL,
+ CONSTRAINT [PK_PackageProduct] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Product]    Script Date: 2020. 07. 12. 22:00:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CreatedUser] [nvarchar](50) NOT NULL,
+	[CreateDate] [datetime2](7) NOT NULL,
+	[ModifiedUser] [nvarchar](50) NULL,
+	[ModifyDate] [datetime2](7) NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[Name] [nvarchar](200) NULL,
+ CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[User]    Script Date: 2020. 07. 12. 22:00:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[User](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CreatedUser] [nvarchar](50) NOT NULL,
+	[CreateDate] [datetime2](7) NOT NULL,
+	[ModifiedUser] [nvarchar](50) NULL,
+	[ModifyDate] [datetime2](7) NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[FirstName] [nvarchar](50) NULL,
+	[LastName] [nvarchar](50) NULL,
+	[Email] [nvarchar](max) NULL,
+	[PasswordHash] [varbinary](max) NULL,
+	[PasswordSalt] [varbinary](max) NULL,
+ CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Package]  WITH CHECK ADD  CONSTRAINT [FK_Package_DeliveryStage_DeliveryStageId] FOREIGN KEY([DeliveryStageId])
+REFERENCES [dbo].[DeliveryStage] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Package] CHECK CONSTRAINT [FK_Package_DeliveryStage_DeliveryStageId]
+GO
+ALTER TABLE [dbo].[Package]  WITH CHECK ADD  CONSTRAINT [FK_Package_User_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[User] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Package] CHECK CONSTRAINT [FK_Package_User_UserId]
+GO
+ALTER TABLE [dbo].[PackageProduct]  WITH CHECK ADD  CONSTRAINT [FK_PackageProduct_Package_PackageId] FOREIGN KEY([PackageId])
+REFERENCES [dbo].[Package] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[PackageProduct] CHECK CONSTRAINT [FK_PackageProduct_Package_PackageId]
+GO
+ALTER TABLE [dbo].[PackageProduct]  WITH CHECK ADD  CONSTRAINT [FK_PackageProduct_Product_ProductId] FOREIGN KEY([ProductId])
+REFERENCES [dbo].[Product] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[PackageProduct] CHECK CONSTRAINT [FK_PackageProduct_Product_ProductId]
+GO
